@@ -17,9 +17,9 @@ class CommandExecNode:
                 }),
             },
             "optional": {
-                "a": ("STRING", ),
-                "b": ("STRING", ),
-                "c": ("STRING", ),
+                "a": (any_typ, ),
+                "b": (any_typ, ),
+                "c": (any_typ, ),
             }
         }
 
