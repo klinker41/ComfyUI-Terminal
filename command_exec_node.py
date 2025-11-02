@@ -17,8 +17,9 @@ class CommandExecNode:
                 }),
             },
             "optional": {
-                "a": (any, ),
-                "b": (any, ),
+                "a": ("STRING", ),
+                "b": ("STRING", ),
+                "c": ("STRING", ),
             }
         }
 
@@ -27,7 +28,7 @@ class CommandExecNode:
     FUNCTION = "run_command"
     CATEGORY = "Custom/Utility"
 
-    def run_command(self, script, a=None, b=None):
+    def run_command(self, script, a=None, b=None, c=None):
         import subprocess
         
         variable_declarations = []
@@ -35,6 +36,8 @@ class CommandExecNode:
             variable_declarations.append(f"a='{a}'")
         if b is not None:
             variable_declarations.append(f"b='{b}'")
+        if c is not None:
+            variable_declarations.append(f"c='{c}'")
 
         # Create the final script
         complete_script = "\n".join(variable_declarations) + "\n" + script
