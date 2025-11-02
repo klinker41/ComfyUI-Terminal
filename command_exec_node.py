@@ -11,7 +11,7 @@ class CommandExecNode:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "command": ("STRING", {
+                "script": ("STRING", {
                     "multiline": True,
                     "default": "echo Hello World"
                 }),
@@ -27,7 +27,7 @@ class CommandExecNode:
     FUNCTION = "run_command"
     CATEGORY = "Custom/Utility"
 
-    def run_command(self, command, a=None, b=None):
+    def run_command(self, script, a=None, b=None):
         import subprocess
         
         variable_declarations = []
@@ -37,7 +37,7 @@ class CommandExecNode:
             variable_declarations.append(f"b='{b}'")
 
         # Create the final script
-        complete_script = "\n".join(variable_declarations) + "\n" + bash_script
+        complete_script = "\n".join(variable_declarations) + "\n" + script
         try:
             result = subprocess.check_output(
                 complete_script, shell=True, stderr=subprocess.STDOUT, universal_newlines=True
