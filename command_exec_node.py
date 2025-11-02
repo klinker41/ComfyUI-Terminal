@@ -11,12 +11,15 @@ class CommandExecNode:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "input": (any_typ,),
                 "command": ("STRING", {
                     "multiline": True,
                     "default": "echo Hello World"
                 }),
             },
+            "optional": {
+                "a": (any, ),
+                "b": (any, ),
+            }
         }
 
     RETURN_TYPES = ("STRING",)
@@ -24,11 +27,20 @@ class CommandExecNode:
     FUNCTION = "run_command"
     CATEGORY = "Custom/Utility"
 
-    def run_command(self, input, command):
+    def run_command(self, command, a=None, b=None):
         import subprocess
+        
+        variable_declarations = []
+        if a is not None:
+            variable_declarations.append(f"a='{a}'")
+        if b is not None:
+            variable_declarations.append(f"b='{b}'")
+
+        # Create the final script
+        complete_script = "\n".join(variable_declarations) + "\n" + bash_script
         try:
             result = subprocess.check_output(
-                command, shell=True, stderr=subprocess.STDOUT, universal_newlines=True
+                complete_script, shell=True, stderr=subprocess.STDOUT, universal_newlines=True
             )
         except subprocess.CalledProcessError as e:
             result = f"[ERROR] Code {e.returncode}:\n{e.output}"
