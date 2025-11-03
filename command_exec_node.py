@@ -20,6 +20,13 @@ class CommandExecNode:
                 "a": (any_typ, ),
                 "b": (any_typ, ),
                 "c": (any_typ, ),
+                "d": (any_typ, ),
+                "e": (any_typ, ),
+                "f": (any_typ, ),
+                "g": (any_typ, ),
+                "h": (any_typ, ),
+                "i": (any_typ, ),
+                "j": (any_typ, ),
             }
         }
 
@@ -28,7 +35,7 @@ class CommandExecNode:
     FUNCTION = "run_command"
     CATEGORY = "Custom/Utility"
 
-    def run_command(self, script, a=None, b=None, c=None):
+    def run_command(self, script, a=None, b=None, c=None, d=None, e=None, f=None, g=None, h=None, i=None, j=None):
         import subprocess
         
         variable_declarations = []
@@ -38,6 +45,20 @@ class CommandExecNode:
             variable_declarations.append(f"b='{b}'")
         if c is not None:
             variable_declarations.append(f"c='{c}'")
+        if d is not None:
+            variable_declarations.append(f"d='{d}'")
+        if e is not None:
+            variable_declarations.append(f"e='{e}'")
+        if f is not None:
+            variable_declarations.append(f"f='{f}'")
+        if g is not None:
+            variable_declarations.append(f"g='{g}'")
+        if h is not None:
+            variable_declarations.append(f"h='{h}'")
+        if i is not None:
+            variable_declarations.append(f"i='{i}'")
+        if j is not None:
+            variable_declarations.append(f"j='{j}'")
 
         # Create the final script
         complete_script = "\n".join(variable_declarations) + "\n" + script
